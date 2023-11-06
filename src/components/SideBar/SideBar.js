@@ -7,7 +7,7 @@ const SideBar = (props) => {
   return (
     <div className={classes.sidebar}>
       <h1>Pocket Notes</h1>
-      <CreateNotesButton />
+      <CreateNotesButton onClick={props.onShowPopup} />
       <GroupsList />
     </div>
   );

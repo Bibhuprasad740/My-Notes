@@ -1,0 +1,27 @@
+.popup {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  border-radius: 14px;
+  background-color: white;
+}
+
+.popup p {
+  font-size: 18px;
+  font-weight: 600;
+  padding: 10px;
+}
+
+.input-container {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+}
+
+.input-container input {
+  width: 70%;
+  height: 2rem;
+  border-radius: 20px;
+  padding: 10px 20px;
+  font-size: 18px;
+}
