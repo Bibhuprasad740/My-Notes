@@ -18,7 +18,14 @@ const Popup = (props) => {
   const [selectedColor, setSelectetdColor] = useState("blueviolet");
   const { isLoading, hasError, sendRequest } = useNetwork();
 
-  const dummyFunction = () => {};
+  const dummyFunction = (newItemId) => {
+    console.log(newItemId);
+    const addedGroup = {
+      key: newItemId,
+      color: selectedColor,
+      name: enteredGroupName,
+    };
+  };
 
   const formSubmitHandler = (event) => {
     event.preventDefault();
@@ -65,7 +72,7 @@ const Popup = (props) => {
             ))}
           </div>
           <div className={classes["popup-footer"]}>
-            <button type="submit" onClick={props.onClose}>
+            <button type="button" onClick={formSubmitHandler}>
               Create
             </button>
           </div>
