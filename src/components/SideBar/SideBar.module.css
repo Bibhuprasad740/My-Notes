@@ -1,0 +1,19 @@
+.sidebar {
+  /* background-color: red; */
+  padding: 1.5rem 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  min-width: 25%;
+  height: 100vh;
+}
+
+.sidebar h1 {
+  font-size: 1.5rem;
+}
+
+@media only screen and (max-width: 500px) {
+  .sidebar {
+    max-width: 100%;
+  }
+}
