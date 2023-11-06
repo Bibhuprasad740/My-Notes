@@ -1,0 +1,23 @@
+.listitem {
+  padding: 15px;
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  gap: 10px;
+  background-color: antiquewhite;
+  margin: 5px 0px;
+  border-top-left-radius: 25px;
+  border-bottom-left-radius: 25px;
+  cursor: pointer;
+}
+
+.listitem p {
+  font-size: 18px;
+}
+
+.logo {
+  border-radius: 100%;
+  padding: 10px;
+  background-color: blue;
+  color: white;
+}

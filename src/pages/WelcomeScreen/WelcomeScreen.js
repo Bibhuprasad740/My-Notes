@@ -1,7 +1,7 @@
 import React from "react";
 import classes from "./WelcomeScreen.module.css";
 import backgroundImage from "../../assets/background.png";
-import lockImage from "../../assets/lock.png";
+// import lockImage from "../../assets/lock.png";
 
 const WelcomeScreen = (props) => {
   return (
