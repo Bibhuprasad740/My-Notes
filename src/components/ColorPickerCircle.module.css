@@ -4,6 +4,7 @@
   height: 2.5rem;
   width: 2.5rem;
   margin-right: 1rem;
+  cursor: pointer;
 }
 
 @media only screen and (max-width: 500px) {

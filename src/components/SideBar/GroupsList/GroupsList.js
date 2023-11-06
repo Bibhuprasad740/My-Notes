@@ -8,8 +8,15 @@ const GroupsList = (props) => {
   const [groups, setGroups] = useState([]);
 
   useEffect(() => {
-    function transformedGroups(groups) {
-      console.log(groups);
+    function transformedGroups(data) {
+      const fetchedGroups = [];
+      for (const groupKey in data) {
+        fetchedGroups.push({
+          name: data[groupKey].name,
+          color: data[groupKey].color,
+        });
+      }
+      setGroups(fetchedGroups);
     }
     fetchGroups(
       {
@@ -23,7 +30,7 @@ const GroupsList = (props) => {
     <div className={classes["groups-list"]}>
       {isLoading && loadingText}
       {groups.map((group) => (
-        <ListItem />
+        <ListItem color={group.color} name={group.name} />
       ))}
     </div>
   );
