@@ -27,7 +27,8 @@ const GroupsList = (props) => {
         });
       }
       setGroups(fetchedGroups);
-      groupContext.setItems(fetchedGroups);
+      console.log(groupContext.items);
+      // groupContext.setItems(fetchedGroups);
     }
     fetchGroups(
       {
@@ -35,7 +36,7 @@ const GroupsList = (props) => {
       },
       transformedGroups
     );
-  }, [fetchGroups]);
+  }, [fetchGroups, groupContext.items]);
   const loadingText = <p>Loading...</p>;
   return (
     <div className={classes["groups-list"]}>

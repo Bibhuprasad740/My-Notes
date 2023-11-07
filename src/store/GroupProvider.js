@@ -6,14 +6,10 @@ const defaultGroupState = {
 };
 
 const groupReducer = (state, action) => {
-  if (action.type === "SET") {
-    // const updatedItems = [];
-    // for(let i = 0; i < action.items.length; i++){
-    //     updatedItems.push(action.items[i]);
-    // }
-    state.items = action.items;
+  if (action.type === "ADD") {
+    let updatedItems = state.items.concat(action.item);
     return {
-      items: action.items,
+      items: updatedItems,
     };
   }
   return defaultGroupState;

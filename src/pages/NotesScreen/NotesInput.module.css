@@ -1,16 +1,15 @@
 .notes-input {
   display: flex;
   align-items: center;
-  /* position: absolute; */
   bottom: 0px;
   padding: 2px 10px;
-  /* background-color: rgba(0, 70, 74, 0.379); */
   width: 100%;
 }
 
 .notes-input img {
   height: 2rem;
   width: 2rem;
+  cursor: pointer;
 }
 
 .notes-input input {
