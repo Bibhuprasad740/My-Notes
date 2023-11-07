@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import classes from "./Popup.module.css";
 import Modal from "./UI/Modal";
 import ColourPickerCircle from "./ColorPickerCircle";
 import useNetwork from "../hooks/use-network";
+import GroupContext from "../store/group-context";
 
 const Popup = (props) => {
   const colors = [
@@ -17,6 +18,7 @@ const Popup = (props) => {
   const [enteredGroupName, setEnteredGroupName] = useState("");
   const [selectedColor, setSelectetdColor] = useState("blueviolet");
   const { isLoading, hasError, sendRequest } = useNetwork();
+  const groupContext = useContext(GroupContext);
 
   const dummyFunction = (newItemId) => {
     console.log(newItemId);
@@ -24,13 +26,16 @@ const Popup = (props) => {
       key: newItemId,
       color: selectedColor,
       name: enteredGroupName,
+      contents: {},
     };
+    groupContext.addItem(addedGroup);
   };
 
   const formSubmitHandler = (event) => {
     event.preventDefault();
-    console.log(enteredGroupName);
-    console.log(selectedColor);
+    if (enteredGroupName.trim().length === "") {
+      return;
+    }
     sendRequest(
       {
         url: "https://notes-app-44a54-default-rtdb.asia-southeast1.firebasedatabase.app/groups.json",
@@ -42,6 +47,7 @@ const Popup = (props) => {
       },
       dummyFunction
     );
+    props.onClose();
   };
 
   const inputChangeHandler = (event) => {

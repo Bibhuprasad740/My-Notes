@@ -1,13 +1,23 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import classes from "./GroupsList.module.css";
 import ListItem from "./ListItem";
 import useNetwork from "../../../hooks/use-network";
+import GroupContext from "../../../store/group-context";
 
 const GroupsList = (props) => {
-  const { isLoading, hasError, sendRequest: fetchGroups } = useNetwork();
+  const { isLoading, sendRequest: fetchGroups } = useNetwork();
   const [groups, setGroups] = useState([]);
+  const groupContext = useContext(GroupContext);
+
+  const showNotesHandler = (name, color) => {
+    props.onShowNotes({
+      name: name,
+      color: color,
+    });
+  };
 
   useEffect(() => {
+    console.log("useEffect running again...");
     function transformedGroups(data) {
       const fetchedGroups = [];
       for (const groupKey in data) {
@@ -17,6 +27,7 @@ const GroupsList = (props) => {
         });
       }
       setGroups(fetchedGroups);
+      groupContext.setItems(fetchedGroups);
     }
     fetchGroups(
       {
@@ -30,7 +41,12 @@ const GroupsList = (props) => {
     <div className={classes["groups-list"]}>
       {isLoading && loadingText}
       {groups.map((group) => (
-        <ListItem color={group.color} name={group.name} />
+        <ListItem
+          onClick={showNotesHandler}
+          color={group.color}
+          name={group.name}
+          key={Math.random()}
+        />
       ))}
     </div>
   );

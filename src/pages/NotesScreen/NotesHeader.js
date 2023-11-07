@@ -1,16 +1,15 @@
 import React from "react";
-import classes from "./ListItem.module.css";
+import classes from "./NotesHeader.module.css";
+import backImage from "../../assets/backButton.png";
 
-const ListItem = (props) => {
+const NotesHeader = (props) => {
   let logoTitle = "";
   for (let i = 0; i < 2; i++) {
     logoTitle += props.name[i].toUpperCase();
   }
-  const showNotesHandler = () => {
-    props.onClick(props.name, props.color);
-  };
   return (
-    <div className={classes.listitem} onClick={showNotesHandler}>
+    <div className={classes["notes-header"]}>
+      <img src={backImage} alt="" />
       <div
         className={classes.logo}
         style={{ backgroundColor: `${props.color}` }}
@@ -22,4 +21,4 @@ const ListItem = (props) => {
   );
 };
 
-export default ListItem;
+export default NotesHeader;

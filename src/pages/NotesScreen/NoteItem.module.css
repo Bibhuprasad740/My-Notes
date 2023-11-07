@@ -1,0 +1,15 @@
+.note-item {
+  padding: 10px;
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: start;
+  gap: 10px;
+}
+
+.date-time {
+  min-width: 20%;
+}
+
+.content {
+  width: 100%;
+}
