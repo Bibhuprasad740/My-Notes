@@ -5,6 +5,7 @@ const GroupContext = React.createContext({
   addItem: () => {},
   removeItem: () => {},
   setItems: () => {},
+  addNotesToGroup: () => {},
 });
 
 export default GroupContext;

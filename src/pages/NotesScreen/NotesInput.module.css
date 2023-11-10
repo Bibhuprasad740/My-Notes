@@ -9,7 +9,12 @@
 .notes-input img {
   height: 2rem;
   width: 2rem;
+}
+
+.notes-input button {
   cursor: pointer;
+  background-color: transparent;
+  border: none;
 }
 
 .notes-input input {

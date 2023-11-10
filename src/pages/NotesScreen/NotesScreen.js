@@ -1,10 +1,20 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import classes from "./NotesScreen.module.css";
 import NotesHeader from "./NotesHeader";
 import Notes from "./Notes";
 import NotesInput from "./NotesInput";
+import GroupContext from "../../store/group-context";
 
 const NotesScreen = (props) => {
+  const groupContext = useContext(GroupContext);
+  let currentGroup;
+  for (let group of groupContext.items) {
+    if (group.name === props.groupDetails.name) {
+      currentGroup = { ...group };
+      break;
+    }
+  }
+  const addNotesToGroupHandler = () => {};
   const dummyNotes = [
     { date: "12-06-2023", time: "10 Am", text: "Complete Notes" },
     {

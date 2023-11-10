@@ -27,8 +27,6 @@ const GroupsList = (props) => {
         });
       }
       setGroups(fetchedGroups);
-      console.log(groupContext.items);
-      // groupContext.setItems(fetchedGroups);
     }
     fetchGroups(
       {
