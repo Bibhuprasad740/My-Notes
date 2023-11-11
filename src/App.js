@@ -6,15 +6,20 @@ import MainScreen from "./pages/MainScreen/MainScreen";
 import Popup from "./components/Popup";
 import NotesScreen from "./pages/NotesScreen/NotesScreen";
 import GroupContext from "./store/group-context";
-import useNetwork from "./hooks/use-network";
+import useStorage from "./hooks/use-storage";
 
 function App() {
-  const { isLoading, sendRequest: fetchGroups } = useNetwork();
   const [showPopup, setShowPopup] = useState(false);
   const [showScreen, setShowScreen] = useState(<WelcomeScreen />);
   const groupContext = useContext(GroupContext);
+  const { setItem: setGroups, getItem: fetchGroups, generateId } = useStorage();
 
-  const showCartHandler = () => {
+  const test = async () => {
+    // localStorage.clear();
+    // setGroups("groups", dummyGroups);
+  };
+
+  const showGroupsHandler = () => {
     setShowPopup(true);
   };
 
@@ -23,12 +28,15 @@ function App() {
   };
 
   useEffect(() => {
-    fetchGroups(
-      {
-        url: "https://notes-app-44a54-default-rtdb.asia-southeast1.firebasedatabase.app/groups.json",
-      },
-      groupContext.setItems
-    );
+    let groups = fetchGroups("groups");
+    if (!groups) {
+      groups = [];
+      setGroups("groups", []);
+    }
+
+    groupContext.setItems(groups);
+
+    console.log("useEffect in App.js");
   }, [fetchGroups]);
 
   const changeMainScreenHandler = (groupDetails) => {
@@ -40,7 +48,7 @@ function App() {
       {showPopup && <Popup onClose={hideCartHandler} />}
       <main>
         <SideBar
-          onShowPopup={showCartHandler}
+          onShowPopup={showGroupsHandler}
           onShowNotes={changeMainScreenHandler}
         />
         <MainScreen>{showScreen}</MainScreen>

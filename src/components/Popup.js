@@ -4,6 +4,7 @@ import Modal from "./UI/Modal";
 import ColourPickerCircle from "./ColorPickerCircle";
 import useNetwork from "../hooks/use-network";
 import GroupContext from "../store/group-context";
+import useStorage from "../hooks/use-storage";
 
 const Popup = (props) => {
   const colors = [
@@ -15,38 +16,30 @@ const Popup = (props) => {
     "lightskyblue",
   ];
 
+  const { setItem: addGroup, getItem: getGroups, generateId } = useStorage();
   const [enteredGroupName, setEnteredGroupName] = useState("");
   const [selectedColor, setSelectetdColor] = useState("blueviolet");
-  const { isLoading, hasError, sendRequest } = useNetwork();
   const groupContext = useContext(GroupContext);
-
-  const dummyFunction = (newItemId) => {
-    console.log(newItemId);
-    const addedGroup = {
-      key: newItemId,
-      color: selectedColor,
-      name: enteredGroupName,
-      contents: {},
-    };
-    groupContext.addItem(addedGroup);
-  };
 
   const formSubmitHandler = (event) => {
     event.preventDefault();
     if (enteredGroupName.trim().length === "") {
       return;
     }
-    sendRequest(
-      {
-        url: "https://notes-app-44a54-default-rtdb.asia-southeast1.firebasedatabase.app/groups.json",
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: { color: selectedColor, name: enteredGroupName },
-      },
-      dummyFunction
-    );
+
+    const groups = getGroups("groups");
+    // console.log(groups);
+
+    const newGroup = {
+      name: enteredGroupName,
+      color: selectedColor,
+      id: generateId(),
+    };
+
+    const updatedGroups = groups.concat(newGroup);
+
+    addGroup("groups", updatedGroups);
+    groupContext.addItem(newGroup);
     props.onClose();
   };
 
@@ -82,7 +75,6 @@ const Popup = (props) => {
               Create
             </button>
           </div>
-          {hasError && <p style={{ color: "red" }}>Some error occured</p>}
         </form>
       </div>
     </Modal>

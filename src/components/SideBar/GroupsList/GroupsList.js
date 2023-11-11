@@ -1,50 +1,39 @@
 import React, { useContext, useEffect, useState } from "react";
 import classes from "./GroupsList.module.css";
 import ListItem from "./ListItem";
-import useNetwork from "../../../hooks/use-network";
 import GroupContext from "../../../store/group-context";
+import useStorage from "../../../hooks/use-storage";
 
 const GroupsList = (props) => {
-  const { isLoading, sendRequest: fetchGroups } = useNetwork();
+  const { setItem: addGroup, getItem: getGroups, generateId } = useStorage();
   const [groups, setGroups] = useState([]);
   const groupContext = useContext(GroupContext);
 
-  const showNotesHandler = (name, color) => {
+  const showNotesHandler = (name, color, id) => {
     props.onShowNotes({
       name: name,
       color: color,
+      id: id,
     });
   };
 
   useEffect(() => {
-    console.log("useEffect running again...");
-    function transformedGroups(data) {
-      const fetchedGroups = [];
-      for (const groupKey in data) {
-        fetchedGroups.push({
-          name: data[groupKey].name,
-          color: data[groupKey].color,
-        });
-      }
+    console.log("useEffect in GroupList");
+    function transformedGroups(fetchedGroups) {
       setGroups(fetchedGroups);
     }
-    fetchGroups(
-      {
-        url: "https://notes-app-44a54-default-rtdb.asia-southeast1.firebasedatabase.app/groups.json",
-      },
-      transformedGroups
-    );
-  }, [fetchGroups, groupContext.items]);
-  const loadingText = <p>Loading...</p>;
+    const groups = getGroups("groups");
+    transformedGroups(groups);
+  }, [getGroups, groupContext.items]);
   return (
     <div className={classes["groups-list"]}>
-      {isLoading && loadingText}
       {groups.map((group) => (
         <ListItem
           onClick={showNotesHandler}
           color={group.color}
           name={group.name}
-          key={Math.random()}
+          id={group.id}
+          key={group.id}
         />
       ))}
     </div>

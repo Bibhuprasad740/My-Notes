@@ -8,14 +8,17 @@ const defaultGroupState = {
 const groupReducer = (state, action) => {
   if (action.type === "SET") {
     let updatedItems = [];
-    for (let firebaseKey in action.items) {
-      let groupItem = {};
-      groupItem.id = firebaseKey;
-      for (let key in action.items[firebaseKey]) {
-        groupItem[key] = action.items[firebaseKey][key];
+    if (action.items) {
+      for (let firebaseKey in action.items) {
+        let groupItem = {};
+        groupItem.id = firebaseKey;
+        for (let key in action.items[firebaseKey]) {
+          groupItem[key] = action.items[firebaseKey][key];
+        }
+        updatedItems.push(groupItem);
       }
-      updatedItems.push(groupItem);
     }
+
     return {
       items: updatedItems,
     };

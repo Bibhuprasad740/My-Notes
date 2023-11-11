@@ -7,7 +7,7 @@ const ListItem = (props) => {
     logoTitle += props.name[i].toUpperCase();
   }
   const showNotesHandler = () => {
-    props.onClick(props.name, props.color);
+    props.onClick(props.name, props.color, props.id);
   };
   return (
     <div className={classes.listitem} onClick={showNotesHandler}>

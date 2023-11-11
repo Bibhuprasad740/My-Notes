@@ -6,7 +6,7 @@ const Notes = (props) => {
   return (
     <div className={classes.notes}>
       {props.notes.map((note) => (
-        <NoteItem note={note} />
+        <NoteItem note={note} key={Math.random()} />
       ))}
     </div>
   );

@@ -3,7 +3,7 @@
   margin-bottom: 20px;
   display: flex;
   justify-content: start;
-  gap: 10px;
+  gap: 20px;
 }
 
 .date-time {
@@ -11,5 +11,5 @@
 }
 
 .content {
-  width: 100%;
+  width: 80%;
 }
