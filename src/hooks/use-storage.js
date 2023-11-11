@@ -4,6 +4,8 @@ const useStorage = () => {
   const generateId = () => {
     const currTime = new Date();
     const id = currTime.toLocaleString("en-US", {
+      day: "numeric",
+      month: "long",
       hour: "numeric",
       minute: "numeric",
       second: "numeric",
@@ -13,9 +15,9 @@ const useStorage = () => {
     return id;
   };
 
-  const setItem = (id, items) => {
+  const setItem = useCallback((id, items) => {
     localStorage.setItem(id, JSON.stringify(items));
-  };
+  }, []);
 
   const getItem = useCallback((key) => {
     const data = JSON.parse(localStorage.getItem(key));

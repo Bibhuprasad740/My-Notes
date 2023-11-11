@@ -6,46 +6,45 @@ import NotesInput from "./NotesInput";
 import GroupContext from "../../store/group-context";
 import useStorage from "../../hooks/use-storage";
 
-const dummyNotes = [
-  { date: "12-06-2023", time: "10 Am", text: "Complete Notes" },
-  {
-    date: "12-06-2023",
-    time: "10 Am",
-    text: "Complete Notes jfaljflfjlajfaj lfj jjjjjjjjjjjjlafjal flajfljaf jfj lfj fal jfla jfaj af fj fj ajfajfjafj lafj afj jf jasfj afjajfj Complete Notes jfaljflfjlajfaj lfj jjjjjjjjjjjjlafjal flajfljaf jfj lfj fal jfla jfaj af fj fj ajfajfjafj lafj afj jf jasfj afjajfjComplete Notes jfaljflfjlajfaj lfj jjjjjjjjjjjjlafjal flajfljaf jfj lfj fal jfla jfaj af fj fj ajfajfjafj lafj afj jf jasfj afjajfjComplete Notes jfaljflfjlajfaj lfj jjjjjjjjjjjjlafjal flajfljaf jfj lfj fal jfla jfaj af fj fj ajfajfjafj lafj afj jf jasfj afjajfjComplete Notes jfaljflfjlajfaj lfj jjjjjjjjjjjjlafjal flajfljaf jfj lfj fal jfla jfaj af fj fj ajfajfjafj lafj afj jf jasfj afjajfjComplete Notes jfaljflfjlajfaj lfj jjjjjjjjjjjjlafjal flajfljaf jfj lfj fal jfla jfaj af fj fj ajfajfjafj lafj afj jf jasfj afjajfj",
-  },
-];
-
 const NotesScreen = (props) => {
-  const { getItem: fetchNotes, setItem, generateId } = useStorage();
   const groupContext = useContext(GroupContext);
-  const [notes, setNotes] = useState(dummyNotes);
+  const { getItem: fetchNotes, setItem: addNotesToGroupInStorage } =
+    useStorage();
+  const [notes, setNotes] = useState([]);
 
-  console.log(props.groupDetails);
+  const groupDetails = props.groupDetails;
 
   useEffect(() => {
-    fetchNotes(props.groupDetails.id, setNotes);
-  }, [fetchNotes, props.groupDetails.id]);
+    const fetchedNotes = fetchNotes(groupDetails.id);
+    if (fetchedNotes && fetchedNotes.length !== 0) {
+      setNotes(fetchedNotes);
+    } else {
+      addNotesToGroupInStorage(groupDetails.id, []);
+      setNotes([]);
+    }
+  }, [addNotesToGroupInStorage, fetchNotes, groupDetails, groupContext.items]);
 
-  // useEffect(() => {
-  //   console.log(groupContext.items);
-  // }, []);
+  const addNotesToGroupHandler = (note) => {
+    const updatedNotes = notes.concat(note);
 
-  // const addNotesToGroupHandler = () => {};
+    setNotes(updatedNotes);
+
+    const notesInStorage = fetchNotes(groupDetails.id);
+    const updatedNotesInStorage = notesInStorage.concat(note);
+    addNotesToGroupInStorage(groupDetails.id, updatedNotesInStorage);
+  };
 
   let contents = <p className={classes.error}>No Notes Found!!</p>;
-  if (notes) {
+  if (notes.length !== 0) {
     contents = <Notes notes={notes} />;
   }
   return (
     <div className={classes.screen}>
       <div className={classes.notes}>
-        <NotesHeader
-          name={props.groupDetails.name}
-          color={props.groupDetails.color}
-        />
+        <NotesHeader name={groupDetails.name} color={groupDetails.color} />
         {contents}
       </div>
-      <NotesInput />
+      <NotesInput onAddNote={addNotesToGroupHandler} />
     </div>
   );
 };

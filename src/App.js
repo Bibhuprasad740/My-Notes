@@ -14,12 +14,8 @@ function App() {
   const groupContext = useContext(GroupContext);
   const { setItem: setGroups, getItem: fetchGroups, generateId } = useStorage();
 
-  const test = async () => {
-    // localStorage.clear();
-    // setGroups("groups", dummyGroups);
-  };
-
   const showGroupsHandler = () => {
+    // localStorage.clear();
     setShowPopup(true);
   };
 
