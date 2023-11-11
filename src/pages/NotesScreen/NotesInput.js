@@ -13,6 +13,9 @@ const NotesInput = (props) => {
 
   const addNoteHandler = (event) => {
     event.preventDefault();
+    if (note.trim().length === 0) {
+      return;
+    }
     const id = generateId();
     const [date, time] = id.split("at");
 
@@ -22,19 +25,17 @@ const NotesInput = (props) => {
   };
 
   return (
-    <div className={classes["notes-input"]}>
+    <form className={classes["notes-input"]} onSubmit={addNoteHandler}>
       <input
         type="text"
         placeholder="Enter your text here.."
         onChange={noteInputChangeHandler}
         value={note}
       />
-      <form onSubmit={addNoteHandler}>
-        <button type="submit">
-          <img src={sendButton} alt="" />
-        </button>
-      </form>
-    </div>
+      <button type="submit">
+        <img src={sendButton} alt="" />
+      </button>
+    </form>
   );
 };
 

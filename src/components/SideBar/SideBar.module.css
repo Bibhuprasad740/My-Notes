@@ -1,11 +1,9 @@
 .sidebar {
-  /* background-color: red; */
   padding: 1.5rem 1rem;
   display: flex;
   flex-direction: column;
   justify-content: start;
   min-width: 20rem;
-  /* max-width: 50rem; */
   height: 100vh;
 }
 

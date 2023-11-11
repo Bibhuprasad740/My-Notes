@@ -5,7 +5,7 @@ import GroupContext from "../../../store/group-context";
 import useStorage from "../../../hooks/use-storage";
 
 const GroupsList = (props) => {
-  const { setItem: addGroup, getItem: getGroups, generateId } = useStorage();
+  const { getItem: getGroups } = useStorage();
   const [groups, setGroups] = useState([]);
   const groupContext = useContext(GroupContext);
 

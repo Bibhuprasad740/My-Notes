@@ -2,7 +2,6 @@ import React, { useContext, useState } from "react";
 import classes from "./Popup.module.css";
 import Modal from "./UI/Modal";
 import ColourPickerCircle from "./ColorPickerCircle";
-import useNetwork from "../hooks/use-network";
 import GroupContext from "../store/group-context";
 import useStorage from "../hooks/use-storage";
 
@@ -23,12 +22,11 @@ const Popup = (props) => {
 
   const formSubmitHandler = (event) => {
     event.preventDefault();
-    if (enteredGroupName.trim().length === "") {
+    if (enteredGroupName.trim().length < 2) {
       return;
     }
 
     const groups = getGroups("groups");
-    // console.log(groups);
 
     const newGroup = {
       name: enteredGroupName,
@@ -40,6 +38,7 @@ const Popup = (props) => {
 
     addGroup("groups", updatedGroups);
     groupContext.addItem(newGroup);
+
     props.onClose();
   };
 

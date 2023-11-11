@@ -12,7 +12,7 @@ function App() {
   const [showPopup, setShowPopup] = useState(false);
   const [showScreen, setShowScreen] = useState(<WelcomeScreen />);
   const groupContext = useContext(GroupContext);
-  const { setItem: setGroups, getItem: fetchGroups, generateId } = useStorage();
+  const { setItem: setGroups, getItem: fetchGroups } = useStorage();
 
   const showGroupsHandler = () => {
     // localStorage.clear();
