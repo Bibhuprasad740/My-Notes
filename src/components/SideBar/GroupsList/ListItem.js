@@ -10,7 +10,7 @@ const ListItem = (props) => {
     props.onClick(props.name, props.color, props.id);
   };
   return (
-    <div className={classes.listitem} onClick={showNotesHandler}>
+    <a href="#notes" className={classes.listitem} onClick={showNotesHandler}>
       <div
         className={classes.logo}
         style={{ backgroundColor: `${props.color}` }}
@@ -18,7 +18,7 @@ const ListItem = (props) => {
         {logoTitle}
       </div>
       <p>{props.name}</p>
-    </div>
+    </a>
   );
 };
 

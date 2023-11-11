@@ -9,6 +9,11 @@
   border-top-left-radius: 25px;
   border-bottom-left-radius: 25px;
   cursor: pointer;
+  text-decoration: none;
+}
+
+.listitem:active {
+  background-color: antiquewhite;
 }
 
 .listitem p {
